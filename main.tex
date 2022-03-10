@@ -1,0 +1,241 @@
+
+\documentclass{article}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{subfig}
+\usetikzlibrary{positioning}
+\usepackage{caption}
+
+\title{Some (hopefully) helpful tips for using git}
+\author{Mateusz Krajewski}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section{Introduction} 
+It is of paramount importance that we use git in an organised and consistent manner. It will reduce confusion and make it easier to mitigate the consequences of our mistakes. And there will be plenty, inevitably. The following is my attempt to standardise our git workflow. Feel free to share this document and adjust it to Your needs -- just remember to keep my name in. Any feedback will be appreciated.
+
+I am going to present a couple of common scenarios that can arise when working with git. I tried to make it as relatable to the current project as possible. For that reason, all the examples below are based solely in Eclipse IDE. I may include some command-line examples later on.
+
+\section{The basics}
+
+\subsection{Git staging}
+
+There are two helpful views that You can enable in order to better understand what's going on. One of them is \textit{Git staging}. You'll find it in: \newline
+
+$\mathtt{Window\rightarrow Show\ view \rightarrow Other \rightarrow Git \rightarrow Git\ Staging}$.\newline
+
+It's an easy tool for reviewing the changes You have made, and ultimately committing them.
+
+\subsection{History}
+
+You can find \textit{History} view under: \newline
+
+$\mathtt{Window \rightarrow Show\ view \rightarrow Other \rightarrow Team \rightarrow History}$.\newline
+
+It shows the history of changes made to the chosen resource in the \textit{Package Explorer}. Besides, it makes it extremely simple to see the state of current branches, both local and remote.
+
+\subsection{Current branch}
+
+The branch You're currently in is displayed right next to the project name in \textit{Package Explorer} (Figure  \ref{fig:branch_name}). You almost certainly know this. But if I want to make this document as comprehensive as possible, it needs to be here.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.6]{branch_name.png}
+    \caption{The location of the current branch name.}
+    \label{fig:branch_name}
+\end{figure}
+
+\newpage
+
+\section{Switching}
+
+This is probably basic knowledge as well. In Eclipse, You can switch between branches/commits by right-clicking the project name in the \textit{Package Explorer} and choosing:\newline
+
+$\mathtt{Team \rightarrow Switch\ to}$.\newline
+
+With the help of this tool, it is possible to:
+
+\begin{itemize}
+    \item create a new local branch;
+    \item create a local copy of a remote branch;
+    \item switch between local branches;
+    \item switch between commits.
+\end{itemize}
+
+\textbf{NOTE: } Before You do any of that, make sure to look into \textit{Git staging} and commit any changes You have made so far. Otherwise, git may behave unpredictably and You will spend the next two hours trying to figure out what to do (it certainly never happened to me, duh). 
+
+\section{Updating the feature branch}
+
+Suppose You started working on Your branch and already made some commits. In the meantime, however, one of Your teammates merged their work into main and now Your branch is outdated. In such a case, the commit graph may look (roughly) like in Figure \ref{fig:before_rebase}. You may want to update Your branch and keep working on it, without having to merge. There is an excellent tool that can help You with that - it's called \textit{Git Rebase}. After rebasing, Your commits will appear as if they were made after the teammate's merge. The results would be similar to those in Figure \ref{fig:after_rebase}.\newline
+
+\begin{minipage}[b]{0.45\textwidth}
+%\centering
+\begin{tikzpicture}[
+    mainnode/.style={circle, draw=green!60, fill=green!5, very thick, minimum size=7mm},
+    branchnode/.style={circle, draw=red!60, fill=red!5, very thick, minimum size=7mm}
+]
+\node[mainnode](main){};
+\node[mainnode](main2)[above=of main]{};
+\node[mainnode](main3)[above=of main2, label=right:\textcolor{OliveGreen}{$\mathtt{main}$}]{};
+\node[branchnode](branch)[left=of main2]{};
+\node[branchnode](branch2)[above=of branch, label=left:\textcolor{BrickRed}{$\mathtt{branch}$}]{};
+\draw[->] (main.north) -- (main2.south);
+\draw[->] (main2.north) -- (main3.south);
+\draw[->] (main.west) .. controls +(left:4mm) and +(down:4mm) .. (branch.south);
+\draw[->] (branch.north) -- (branch2.south);
+\end{tikzpicture}
+\captionof{figure}{Before rebase.}
+\label{fig:before_rebase}
+\end{minipage}
+\hspace{0.1\textwidth}
+\begin{minipage}[b]{0.45\textwidth}
+\begin{tikzpicture}[
+    mainnode/.style={circle, draw=green!60, fill=green!5, very thick, minimum size=7mm},
+    branchnode/.style={circle, draw=red!60, fill=red!5, very thick, minimum size=7mm}
+]
+\node[mainnode](main){};
+\node[mainnode](main2)[above=of main]{};
+\node[mainnode](main3)[above=of main2, label=right:\textcolor{OliveGreen}{$\mathtt{main}$}]{};
+\node[branchnode](branch)[above left=of main3]{};
+\node[branchnode](branch2)[above=of branch, label=left:\textcolor{BrickRed}{$\mathtt{branch}$}]{};
+\draw[->] (main.north) -- (main2.south);
+\draw[->] (main2.north) -- (main3.south);
+\draw[->] (main3.west) .. controls +(left:4mm) and +(down:4mm) .. (branch.south);
+\draw[->] (branch.north) -- (branch2.south);
+\end{tikzpicture}
+\captionof{figure}{After rebase.}
+\label{fig:after_rebase}
+\end{minipage}
+\newline
+
+Now, how to do that? The process is quite simple. First, make sure that the main branch is synchronised with the remote. Then, \textbf{check out the feature branch}. Right-click the project name and choose the following:\newline
+
+$\mathtt{Team\rightarrow Rebase}.$\newline
+
+After that, select the local main branch. Boom. You're done.
+
+\subsection{Conflicts with the local main branch}
+
+If there are conflicts, however, things get a little more complicated. Most likely, a window like that in Figure \ref{fig:rebase_result} shows up. It displays the first of Your commits with conflicts detected, as well as the affected files. If You prefer to give Yourself some time to think, choose the \textit{abort rebase} option. Otherwise, if You're feeling daring today and like living life on the edge, \textit{start merge tool to resolve conflicts}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.5]{rebase_result.png}
+    \caption{If there are conflicts during a rebase, this window will show up.}
+    \label{fig:rebase_result}
+\end{figure}
+
+Next, You will be taken to the \textit{Merge Tool}, as shown in Figure \ref{fig:rebase_merge_tool}. There are three sections here:
+\begin{itemize}
+    \item The upper section shows the files You need to fix.
+    \item The bottom left section shows what the files look like in the last commit in main. This is where You apply Your changes.
+    \item The bottom right section shows what the files look like in the first conflicting commit of Your branch. You can't change anything here.
+\end{itemize}
+
+After You've made Your changes, stage them in the \textit{Git Staging} view. Next, choose the \textit{Continue} button, just like in Figure \ref{fig:rebase_continue}. If any more of Your commits are in conflict with \textit{main}, You will have to repeat the procedure. Otherwise, the rebasing is done and You can keep working on Your branch (or merge it into main without any conflicts).
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.27]{rebase_merge_tool.png}
+    \caption{The Merge Tool shown if there are conflicts during a rebase.}
+    \label{fig:rebase_merge_tool}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.27]{rebase_continue.png}
+    \caption{The \textit{Git Staging} view shown if there are conflicts during a rebase.}
+    \label{fig:rebase_continue}
+\end{figure}
+
+\subsection{Conflicts with the remote branch}
+\label{fig:push_conflict}
+
+Imagine the following scenario: You pushed Your commits to the remote feature branch, tried to rebase locally, encountered conflicts, solved conflicts, and tried to push the branch again. \textbf{Shucks}. You probably got a message like `fast-forward merge rejected'. That's because when resolving the rebase conflicts, You modified Your commits, and now they're different from what's in the remote. If You're really certain of what You're doing, You can force git to overwrite the remote branch with Your current local one. In order to do that, right-click the project name and choose:\newline
+
+$\mathtt{Team\rightarrow Push\ Branch\ 'branch\_name'}$.\newline 
+
+After that, the window similar to that in Figure \ref{fig:force_push} will show up. Tick the option to \textit{force overwrite branch in remote if it exists and has diverged} and \textit{push}. That's it. Now Your local branch is synchronised with the remote one.
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.5]{force_push.png}
+    \caption{The window that shows up when You try to push a local branch.}
+    \label{fig:force_push}
+\end{figure}
+
+\section{Squashing}
+This is not necessarily useful, but git offers the option to `squeeze' multiple consecutive commits into one. You may want to do it to simplify Your commit history. The process is simple: go to \textit{History} view, ctrl-select the commits You want to squash and right-click them. After that, choose:\newline
+
+$\mathtt{Modify\rightarrow Squash}$.\newline
+
+If You pushed the commits before squashing them, You may be prohibited from pushing again. In such a case, refer to Subsection \ref{fig:push_conflict}.
+
+\section{Merging}
+Merging is really quite simple. \textbf{Check out the main branch}, right-click the project name and choose\newline
+
+$\mathtt{Team\rightarrow Merge}$.\newline
+
+After that, select the branch You want to merge into main. No need to meddle with the additional options. Now, if we imagine a commit graph like that in Figure \ref{fig:before_rebase}, its structure after the merge would be similar to that in Figure \ref{fig:after_merge}. Note how git creates an additional merge commit, which incorporates the changes made both in the main branch and in the feature branch.
+
+\begin{figure}
+\centering
+\begin{tikzpicture}[
+    mainnode/.style={circle, draw=green!60, fill=green!5, very thick, minimum size=7mm},
+    branchnode/.style={circle, draw=red!60, fill=red!5, very thick, minimum size=7mm}
+]
+\node[mainnode](main){};
+\node[mainnode](main2)[above=of main]{};
+\node[mainnode](main3)[above=of main2]{};
+\node[mainnode](main4)[above=of main3, label=right:\textcolor{OliveGreen}{$\mathtt{main}$} / \textcolor{BrickRed}{$\mathtt{branch}$}]{};
+\node[branchnode](branch)[left=of main2]{};
+\node[branchnode](branch2)[above=of branch]{};
+\draw[->] (main.north) -- (main2.south);
+\draw[->] (main2.north) -- (main3.south);
+\draw[->] (main3.north) -- (main4.south);
+\draw[->] (main.west) .. controls +(left:4mm) and +(down:4mm) .. (branch.south);
+\draw[->] (branch.north) -- (branch2.south);
+\draw[->] (branch2.north) .. controls +(up:4mm) and +(left:4mm) .. (main4.west);
+\end{tikzpicture}
+\caption{After merge.}
+\label{fig:after_merge}
+\end{figure}
+
+\subsection{Conflicts}
+
+If the attempt to merge results in conflicts, it might be worth looking into the \textit{Git Staging} view. The \textit{Staged Changes} window will contain all successfully merged files. The \textit{Unstaged Changes}, in turn, will contain all the files that'll have to be fixed. You can do it either with the \textit{Merge Tool} (refer to section \ref{fig:push_conflict}) or edit every file by Yourself. In the latter case, every conflict is of the form:
+\begin{verbatim}
+<<<<<<< HEAD
+what you see in the main branch
+=======
+what you see in the feature branch
+>>>>>>>
+\end{verbatim}
+You can choose one of the two options, merge them, or do anything else, really. Just remember to remove the redundant symbols - git won't do it for You! Once You're done, stage and commit Your changes.
+
+
+\section{Git commit messages}
+I know it's hard, but it is very important to try your best to commit in a standardised and consistent way. Some reasons why: 
+\begin{itemize}
+    \item You'll be able to track what you are doing better; when you come to work on the project two weeks later a commit message titled \textit{Add search button} will be far more helpful than a commit message titled \textit{Commit 5, I solved the issue}.
+    \item When your team members or other people go to work on the repository, they will be able to scan through what you have done and work on your code. 
+\end{itemize}
+
+How to do it: 
+\begin{enumerate}
+    \item Start with an imperative form of the verb i.e. \textit{add, fix, delete};
+    \item Start with a capital letter; 
+    \item Keep it short;
+    \item Provide the concise outline of what You did;
+    \item Don't end the commit message with a period. 
+\end{enumerate}
+\end{document}
