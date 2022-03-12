@@ -10,6 +10,14 @@
 \usetikzlibrary{positioning}
 \usepackage{caption}
 \usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Git tips},
+    pdfpagemode=FullScreen,
+}
 
 \title{Some (hopefully) helpful tips for using git}
 \author{Mateusz Krajewski}
@@ -21,7 +29,7 @@
 \newpage
 
 \section{Introduction} 
-It is of paramount importance that we use git in an organised and consistent manner. It will reduce confusion and make it easier to mitigate the consequences of our mistakes. And there will be plenty, inevitably. The following is my attempt to standardise our git workflow. Feel free to share this document and adjust it to Your needs -- just remember to keep my name in. Any feedback will be appreciated.
+It is of paramount importance that we use git in an organised and consistent manner. It will reduce confusion and make it easier to mitigate the consequences of our mistakes. And there will be plenty, inevitably. The following is my attempt to standardise our git workflow. Feel free to share this document and adjust it to Your needs -- just remember to keep my name in. \hyperref[sec:contributing]{Contributions} will be appreciated.
 
 In order to make the branch history as clean as possible, we have decided to create seven separate branches - one for every team member. Every developer is going to work on their issues on the branch assigned to them - and merge it with main when necessary.
 
@@ -29,7 +37,7 @@ I am going to present a couple of common scenarios that can arise when working w
 
 \section{The development process}
 
-The following is the general overview of our development process. You should try to adhere to it as much as possible. You will find more details later on in this document.
+The following is the general overview of our development process. You should try to adhere to it as much as possible. To explore the steps in more details, refer to the later parts of this document.
 
 \begin{enumerate}
 	\item Start working on the issue on Your own branch.
@@ -73,6 +81,12 @@ The branch You're currently in is displayed right next to the project name in \t
 
 \subsection{Pulling}
 \label{sec:pulling}
+
+In order to synchronise Your local branch with any changes made to its remote counterpart, right-click the project name and choose
+
+$\mathtt{Team \rightarrow Pull}$. \newline
+
+Most likely, You will have to choose between two identical \textit{Pull} options. The only difference is that the second one goes into the process in more detail. Ultimately, though, it doesn't really matter which one You'll pick.
 
 \section{Switching}
 \label{sec:switching}
@@ -261,6 +275,9 @@ How to do it:
     \item Provide the concise outline of what You did;
     \item Don't end the commit message with a period. 
 \end{enumerate}
+
+\section{Contributing}
+\label{sec:contributing}
 
 \section{Acknowledgements}
 
