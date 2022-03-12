@@ -48,7 +48,7 @@ The following is the general overview of our development process. You should try
 	\item Close the issue in the issue tracker.
 \end{enumerate}
 
-\section{Miscellanies}
+\section{Miscellany}
 
 \subsection{Git staging}
 \label{sec:git_staging}
@@ -108,7 +108,7 @@ With the help of this tool, it is possible to:
 
 \section{Updating the feature branch}
 
-Suppose You started working on Your branch and already made some commits. In the meantime, however, one of Your teammates merged their work into main and now Your branch is outdated. In such a case, the commit graph may look (roughly) like in Figure \ref{fig:before_update}. You may want to update Your branch and keep working on it, without having to merge into main. In order to do that, You can do the opposite - merge main into Your branch. This operation would result in creating a new merge commit, just like in Figure \ref{fig:after_update}.\newline
+Suppose You started working on Your branch and already made some commits. In the meantime, however, one of Your teammates merged their work into main and now Your branch is outdated. In such a case, the commit graph may look (roughly) like in Figure \ref{fig:before_update}. You may want to update Your branch and keep working on it, without having to merge into main (not yet, at least). In order to do that, You can do the opposite - merge main into Your branch. This operation would result in creating a new merge commit, just like in Figure \ref{fig:after_update}.\newline
 
 \begin{minipage}[b]{0.45\textwidth}
 \begin{tikzpicture}[
@@ -208,24 +208,17 @@ After that, the window similar to that in Figure \ref{fig:force_push} will show 
     \label{fig:force_push}
 \end{figure}
 
-\section{Squashing}
-\label{sec:squashing}
-This is not necessarily useful, but git offers the option to `squeeze' multiple consecutive commits into one. You may want to do it to simplify Your commit history. The process is simple: go to \textit{History} view, ctrl-select the commits You want to squash and right-click them. After that, choose:\newline
-
-$\mathtt{Modify\rightarrow Squash}$.\newline
-
-If You pushed the commits before squashing them, You may be prohibited from pushing again. In such a case, refer to Subsection \ref{fig:push_conflict}.
-
-\section{Merging}
+\section{Merging with main}
 \label{sec:merging}
-Merging is really quite simple. \textbf{Check out the main branch}, right-click the project name and choose\newline
+Merging is really quite simple. Before You do that, however, make sure that Your main branch is up-to-date with the remote one (\hyperref[sec:switching]{switch} to main and \hyperref[sec:pulling]{pull} the remote). After that, right-click the project name and choose:\newline
 
 $\mathtt{Team\rightarrow Merge}$.\newline
 
-After that, select the branch You want to merge into main. No need to meddle with the additional options. Now, if we imagine a commit graph like that in Figure \ref{fig:before_rebase}, its structure after the merge would be similar to that in Figure \ref{fig:after_merge}. Note how git creates an additional merge commit, which incorporates the changes made both in the main branch and in the feature branch.
+Then, select the branch You want to merge into main. No need to meddle with the additional options. Now, if we imagine a commit graph like that in Figure \ref{fig:before_update}, its structure after the merge would be similar to that in Figure \ref{fig:after_merge}. Note how git creates an additional merge commit, which incorporates the changes made both in the main branch and in the feature branch. Any further changes made to the feature branch will result in the graph evolving like in Figure \ref{fig:after_changes}.
 
-\begin{figure}
-\centering
+If You encounter conflicts, refer to section \ref{sec:conflicts}.\newline
+
+\begin{minipage}[b]{0.45\textwidth}
 \begin{tikzpicture}[
     mainnode/.style={circle, draw=green!60, fill=green!5, very thick, minimum size=7mm},
     branchnode/.style={circle, draw=red!60, fill=red!5, very thick, minimum size=7mm}
@@ -239,15 +232,47 @@ After that, select the branch You want to merge into main. No need to meddle wit
 \draw[->] (main.north) -- (main2.south);
 \draw[->] (main2.north) -- (main3.south);
 \draw[->] (main3.north) -- (main4.south);
-\draw[->] (main.west) .. controls +(left:4mm) and +(down:4mm) .. (branch.south);
+\draw[->] (main.west) .. controls +(left:2mm) and +(down:4mm) .. (branch.south);
 \draw[->] (branch.north) -- (branch2.south);
-\draw[->] (branch2.north) .. controls +(up:4mm) and +(left:4mm) .. (main4.west);
+\draw[->] (branch2.east) .. controls +(right:2mm) and +(down:4mm) .. (main4.south);
 \end{tikzpicture}
-\caption{After merge.}
+\captionof{figure}{After merge.}
 \label{fig:after_merge}
-\end{figure}
+\end{minipage}
+\hspace{0.1\textwidth}
+\begin{minipage}[b]{0.45\textwidth}
+\begin{tikzpicture}[
+    mainnode/.style={circle, draw=green!60, fill=green!5, very thick, minimum size=7mm},
+    branchnode/.style={circle, draw=red!60, fill=red!5, very thick, minimum size=7mm}
+]
+\node[mainnode](main){};
+\node[mainnode](main2)[above=of main]{};
+\node[mainnode](main3)[above=of main2]{};
+\node[mainnode](main4)[above=of main3, label=right:\textcolor{OliveGreen}{$\mathtt{main}$}]{};
+\node[branchnode](branch)[left=of main2]{};
+\node[branchnode](branch2)[above=of branch]{};
+\node[branchnode](branch3)[above=of branch3, label=left:\textcolor{BrickRed}{$\mathtt{branch}$}]{};
+\draw[->] (main.north) -- (main2.south);
+\draw[->] (main2.north) -- (main3.south);
+\draw[->] (main3.north) -- (main4.south);
+\draw[->] (main.west) .. controls +(left:2mm) and +(down:4mm) .. (branch.south);
+\draw[->] (branch.north) -- (branch2.south);
+\draw[->] (branch2.east) .. controls +(right:2mm) and +(down:4mm) .. (main4.south);
+\draw[->] (main4.west) .. controls +(left:2mm) and +(down:4mm) .. (branch3.south);
+\end{tikzpicture}
+\captionof{figure}{After further changes.}
+\label{fig:after_changes}
+\end{minipage}
 
-\subsection{Conflicts}
+\section{Squashing}
+\label{sec:squashing}
+This is not necessarily useful, but git offers the option to `squeeze' multiple consecutive commits into one. You may want to do it to simplify Your commit history. The process is simple: go to \textit{History} view, ctrl-select the commits You want to squash and right-click them. After that, choose:\newline
+
+$\mathtt{Modify\rightarrow Squash}$.\newline
+
+If You pushed the commits before squashing them, You may be prohibited from pushing again. In such a case, refer to Subsection \ref{fig:push_conflict}.
+
+\section{Conflicts}
 \label{sec:conflicts}
 
 If the attempt to merge results in conflicts, it might be worth looking into the \textit{Git Staging} view. The \textit{Staged Changes} window will contain all successfully merged files. The \textit{Unstaged Changes}, in turn, will contain all the files that'll have to be fixed. You can do it either with the \textit{Merge Tool} (refer to section \ref{fig:push_conflict}) or edit every file by Yourself. In the latter case, every conflict is of the form:
