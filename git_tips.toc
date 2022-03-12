@@ -1,0 +1,16 @@
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
+\contentsline {section}{\numberline {2}The development process}{2}{section.2}%
+\contentsline {section}{\numberline {3}Miscellany}{2}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Git staging}{2}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}History}{3}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Current branch}{3}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Pulling}{3}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Moving between branches}{4}{section.4}%
+\contentsline {section}{\numberline {5}Updating the feature branch}{4}{section.5}%
+\contentsline {paragraph}{}{5}{section*.3}%
+\contentsline {subsection}{\numberline {5.1}Conflicts with the local main branch}{5}{subsection.5.1}%
+\contentsline {section}{\numberline {6}Merging with main}{6}{section.6}%
+\contentsline {section}{\numberline {7}Conflicts}{8}{section.7}%
+\contentsline {section}{\numberline {8}Git commit messages}{8}{section.8}%
+\contentsline {section}{\numberline {9}Contributing}{9}{section.9}%
+\contentsline {section}{\numberline {10}Acknowledgements}{9}{section.10}%

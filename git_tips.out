@@ -1,0 +1,15 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{The development process}{}% 2
+\BOOKMARK [1][-]{section.3}{Miscellany}{}% 3
+\BOOKMARK [2][-]{subsection.3.1}{Git staging}{section.3}% 4
+\BOOKMARK [2][-]{subsection.3.2}{History}{section.3}% 5
+\BOOKMARK [2][-]{subsection.3.3}{Current branch}{section.3}% 6
+\BOOKMARK [2][-]{subsection.3.4}{Pulling}{section.3}% 7
+\BOOKMARK [1][-]{section.4}{Moving between branches}{}% 8
+\BOOKMARK [1][-]{section.5}{Updating the feature branch}{}% 9
+\BOOKMARK [2][-]{subsection.5.1}{Conflicts with the local main branch}{section.5}% 10
+\BOOKMARK [1][-]{section.6}{Merging with main}{}% 11
+\BOOKMARK [1][-]{section.7}{Conflicts}{}% 12
+\BOOKMARK [1][-]{section.8}{Git commit messages}{}% 13
+\BOOKMARK [1][-]{section.9}{Contributing}{}% 14
+\BOOKMARK [1][-]{section.10}{Acknowledgements}{}% 15
