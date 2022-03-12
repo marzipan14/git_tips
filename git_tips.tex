@@ -9,6 +9,7 @@
 \usepackage{subfig}
 \usetikzlibrary{positioning}
 \usepackage{caption}
+\usepackage{hyperref}
 
 \title{Some (hopefully) helpful tips for using git}
 \author{Mateusz Krajewski}
@@ -34,14 +35,15 @@ The following is the general overview of our development process. You should try
 	\item Start working on the issue on Your own branch.
 	\item Remember to commit and push regularly, so that other team members can review Your changes.
 	\item Your work is only done when Your code reviewer says so.
-	\item In order to merge, first make sure that Your local main branch is up-to-date with the remote one. In order to do that, \textit{switch} to main branch and \textit{pull} from the remote.
-	\item Then, \textit{merge} Your branch into main. Solve any conflicts that may arise.
+	\item In order to merge, first make sure that Your local main branch is up-to-date with the remote one. In order to do that, \hyperref[sec:switching]{switch} to main branch and \hyperref[sec:pulling]{pull} from the remote.
+	\item Then, \hyperref[sec:merging]{merge} Your branch into main. Solve any \hyperref[sec:conflicts]{conflicts} that may arise.
 	\item Close the issue in the issue tracker.
 \end{enumerate}
 
 \section{The basics}
 
 \subsection{Git staging}
+\label{sec:git_staging}
 
 There are two helpful views that You can enable in order to better understand what's going on. One of them is \textit{Git staging}. You'll find it in: \newline
 
@@ -50,6 +52,7 @@ $\mathtt{Window\rightarrow Show\ view \rightarrow Other \rightarrow Git \rightar
 It's an easy tool for reviewing the changes You have made, and ultimately committing them.
 
 \subsection{History}
+\label{sec:git_history}
 
 You can find \textit{History} view under: \newline
 
@@ -68,7 +71,11 @@ The branch You're currently in is displayed right next to the project name in \t
     \label{fig:branch_name}
 \end{figure}
 
+\subsection{Pulling}
+\label{sec:pulling}
+
 \section{Switching}
+\label{sec:switching}
 
 This is probably basic knowledge as well. In Eclipse, You can switch between branches/commits by right-clicking the project name in the \textit{Package Explorer} and choosing:\newline
 
@@ -186,6 +193,7 @@ After that, the window similar to that in Figure \ref{fig:force_push} will show 
 \end{figure}
 
 \section{Squashing}
+\label{sec:squashing}
 This is not necessarily useful, but git offers the option to `squeeze' multiple consecutive commits into one. You may want to do it to simplify Your commit history. The process is simple: go to \textit{History} view, ctrl-select the commits You want to squash and right-click them. After that, choose:\newline
 
 $\mathtt{Modify\rightarrow Squash}$.\newline
@@ -193,6 +201,7 @@ $\mathtt{Modify\rightarrow Squash}$.\newline
 If You pushed the commits before squashing them, You may be prohibited from pushing again. In such a case, refer to Subsection \ref{fig:push_conflict}.
 
 \section{Merging}
+\label{sec:merging}
 Merging is really quite simple. \textbf{Check out the main branch}, right-click the project name and choose\newline
 
 $\mathtt{Team\rightarrow Merge}$.\newline
@@ -223,6 +232,7 @@ After that, select the branch You want to merge into main. No need to meddle wit
 \end{figure}
 
 \subsection{Conflicts}
+\label{sec:conflicts}
 
 If the attempt to merge results in conflicts, it might be worth looking into the \textit{Git Staging} view. The \textit{Staged Changes} window will contain all successfully merged files. The \textit{Unstaged Changes}, in turn, will contain all the files that'll have to be fixed. You can do it either with the \textit{Merge Tool} (refer to section \ref{fig:push_conflict}) or edit every file by Yourself. In the latter case, every conflict is of the form:
 \begin{verbatim}
@@ -236,6 +246,7 @@ You can choose one of the two options, merge them, or do anything else, really. 
 
 
 \section{Git commit messages}
+\label{sec:commit_messages}
 I know it's hard, but it is very important to try your best to commit in a standardised and consistent way. Some reasons why: 
 \begin{itemize}
     \item You'll be able to track what you are doing better; when you come to work on the project two weeks later a commit message titled \textit{Add search button} will be far more helpful than a commit message titled \textit{Commit 5, I solved the issue}.
