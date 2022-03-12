@@ -48,7 +48,7 @@ The following is the general overview of our development process. You should try
 	\item Close the issue in the issue tracker.
 \end{enumerate}
 
-\section{The basics}
+\section{Miscellanies}
 
 \subsection{Git staging}
 \label{sec:git_staging}
@@ -104,14 +104,13 @@ With the help of this tool, it is possible to:
     \item switch between commits.
 \end{itemize}
 
-\textbf{NOTE: } Before You do any of that, make sure to look into \textit{Git staging} and commit any changes You have made so far. Otherwise, git may behave unpredictably and You will spend the next two hours trying to figure out what to do (it certainly never happened to me, duh). 
+\textbf{NOTE: } Before You do any of that, make sure to look into \hyperref[sec:git_staging]{Git staging} and commit any changes You have made so far. Otherwise, git may behave unpredictably and You will spend the next two hours trying to figure out what to do (it certainly never happened to me, duh). 
 
 \section{Updating the feature branch}
 
-Suppose You started working on Your branch and already made some commits. In the meantime, however, one of Your teammates merged their work into main and now Your branch is outdated. In such a case, the commit graph may look (roughly) like in Figure \ref{fig:before_rebase}. You may want to update Your branch and keep working on it, without having to merge. There is an excellent tool that can help You with that - it's called \textit{Git Rebase}. After rebasing, Your commits will appear as if they were made after the teammate's merge. The results would be similar to those in Figure \ref{fig:after_rebase}.\newline
+Suppose You started working on Your branch and already made some commits. In the meantime, however, one of Your teammates merged their work into main and now Your branch is outdated. In such a case, the commit graph may look (roughly) like in Figure \ref{fig:before_update}. You may want to update Your branch and keep working on it, without having to merge into main. In order to do that, You can do the opposite - merge main into Your branch. This operation would result in creating a new merge commit, just like in Figure \ref{fig:after_update}.\newline
 
 \begin{minipage}[b]{0.45\textwidth}
-%\centering
 \begin{tikzpicture}[
     mainnode/.style={circle, draw=green!60, fill=green!5, very thick, minimum size=7mm},
     branchnode/.style={circle, draw=red!60, fill=red!5, very thick, minimum size=7mm}
@@ -123,11 +122,11 @@ Suppose You started working on Your branch and already made some commits. In the
 \node[branchnode](branch2)[above=of branch, label=left:\textcolor{BrickRed}{$\mathtt{branch}$}]{};
 \draw[->] (main.north) -- (main2.south);
 \draw[->] (main2.north) -- (main3.south);
-\draw[->] (main.west) .. controls +(left:4mm) and +(down:4mm) .. (branch.south);
+\draw[->] (main.west) .. controls +(left:2mm) and +(down:4mm) .. (branch.south);
 \draw[->] (branch.north) -- (branch2.south);
 \end{tikzpicture}
-\captionof{figure}{Before rebase.}
-\label{fig:before_rebase}
+\captionof{figure}{Before updating.}
+\label{fig:before_update}
 \end{minipage}
 \hspace{0.1\textwidth}
 \begin{minipage}[b]{0.45\textwidth}
@@ -138,23 +137,26 @@ Suppose You started working on Your branch and already made some commits. In the
 \node[mainnode](main){};
 \node[mainnode](main2)[above=of main]{};
 \node[mainnode](main3)[above=of main2, label=right:\textcolor{OliveGreen}{$\mathtt{main}$}]{};
-\node[branchnode](branch)[above left=of main3]{};
-\node[branchnode](branch2)[above=of branch, label=left:\textcolor{BrickRed}{$\mathtt{branch}$}]{};
+\node[branchnode](branch)[left=of main2]{};
+\node[branchnode](branch2)[above=of branch]{};
+\node[branchnode](branch3)[above=of branch2, label=left:\textcolor{BrickRed}{$\mathtt{branch}$}]{};
 \draw[->] (main.north) -- (main2.south);
 \draw[->] (main2.north) -- (main3.south);
-\draw[->] (main3.west) .. controls +(left:4mm) and +(down:4mm) .. (branch.south);
+\draw[->] (main.west) .. controls +(left:2mm) and +(down:4mm) .. (branch.south);
 \draw[->] (branch.north) -- (branch2.south);
+\draw[->] (branch2.north) -- (branch3.south);
+\draw[->] (main3.west) .. controls +(left:2mm) and +(down:4mm) .. (branch3.south);
 \end{tikzpicture}
-\captionof{figure}{After rebase.}
-\label{fig:after_rebase}
+\captionof{figure}{After updating.}
+\label{fig:after_update}
 \end{minipage}
-\newline
 
-Now, how to do that? The process is quite simple. First, make sure that the main branch is synchronised with the remote. Then, \textbf{check out the feature branch}. Right-click the project name and choose the following:\newline
+\paragraph{}
+Now, how to do that? The process is quite simple. First, make sure that the main branch is synchronised with the remote. Then, \hyperref[sec:switching]{switch} to the feature branch. Right-click the project name and choose the following:\newline
 
-$\mathtt{Team\rightarrow Rebase}.$\newline
+$\mathtt{Team\rightarrow Merge}.$\newline
 
-After that, select the local main branch. Boom. You're done.
+After that, select the local main branch. Solve any \hyperref[sec:conflicts]{conflicts} that may arise. Move on.
 
 \subsection{Conflicts with the local main branch}
 
