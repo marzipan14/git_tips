@@ -88,7 +88,7 @@ $\mathtt{Team \rightarrow Pull}$. \newline
 
 Most likely, You will have to choose between two identical \textit{Pull} options. The only difference is that the second one goes into the process in more detail. Ultimately, though, it doesn't really matter which one You'll pick.
 
-\section{Switching}
+\section{Moving between branches}
 \label{sec:switching}
 
 This is probably basic knowledge as well. In Eclipse, You can switch between branches/commits by right-clicking the project name in the \textit{Package Explorer} and choosing:\newline
@@ -152,7 +152,7 @@ Suppose You started working on Your branch and already made some commits. In the
 \end{minipage}
 
 \paragraph{}
-Now, how to do that? The process is quite simple. First, make sure that the main branch is synchronised with the remote. Then, \hyperref[sec:switching]{switch} to the feature branch. Right-click the project name and choose the following:\newline
+Now, how to do that? The process itself is quite simple. First, make sure that the main branch is synchronised with the remote (\hyperref[sec:switching]{switch} to main and \hyperref[sec:pulling]{pull}). Then, \hyperref[sec:switching]{switch} to the feature branch. Right-click the project name and choose the following:\newline
 
 $\mathtt{Team\rightarrow Merge}.$\newline
 
@@ -190,22 +190,6 @@ After You've made Your changes, stage them in the \textit{Git Staging} view. Nex
     \includegraphics[scale=0.27]{rebase_continue.png}
     \caption{The \textit{Git Staging} view shown if there are conflicts during a rebase.}
     \label{fig:rebase_continue}
-\end{figure}
-
-\subsection{Conflicts with the remote branch}
-\label{fig:push_conflict}
-
-Imagine the following scenario: You pushed Your commits to the remote feature branch, tried to rebase locally, encountered conflicts, solved conflicts, and tried to push the branch again. \textbf{Shucks}. You probably got a message like `fast-forward merge rejected'. That's because when resolving the rebase conflicts, You modified Your commits, and now they're different from what's in the remote. If You're really certain of what You're doing, You can force git to overwrite the remote branch with Your current local one. In order to do that, right-click the project name and choose:\newline
-
-$\mathtt{Team\rightarrow Push\ Branch\ 'branch\_name'}$.\newline 
-
-After that, the window similar to that in Figure \ref{fig:force_push} will show up. Tick the option to \textit{force overwrite branch in remote if it exists and has diverged} and \textit{push}. That's it. Now Your local branch is synchronised with the remote one.
-
-\begin{figure}
-    \centering
-    \includegraphics[scale=0.5]{force_push.png}
-    \caption{The window that shows up when You try to push a local branch.}
-    \label{fig:force_push}
 \end{figure}
 
 \section{Merging with main}
