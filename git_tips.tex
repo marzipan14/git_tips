@@ -10,6 +10,7 @@
 \usetikzlibrary{positioning}
 \usepackage{caption}
 \usepackage{hyperref}
+\usepackage{xcolor}
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
@@ -254,10 +255,10 @@ There are two main sections in the \textit{Merge Tool}. The left one shows what 
 
 The \textit{Merge Tool} highlights all differences between the two files. Use it to Your advantage:
 \begin{itemize}
-	\item blue - the change exists in Your branch, doesn't exist in the branch You're merging into;
-	\item green - the change doesn't exist in Your branch, exists in the branch You're merging into;
-	\item red - both Your branch and the branch You're merging into have applied different changes to the same segment, and they can't be combined together;
-	\item gray - both Your branch and the branch You're merging into have applied different changes to the same segment, but they can be combined together. 
+	\item \textbf{\textcolor{blue}{blue}} - the change exists in Your branch, doesn't exist in the branch You're merging into;
+	\item \textbf{\textcolor{green}{green}} - the change doesn't exist in Your branch, exists in the branch You're merging into;
+	\item \textbf{\textcolor{red}{red}} - both Your branch and the branch You're merging into have applied different changes to the same segment, and they can't be combined together;
+	\item \textbf{\textcolor{darkgray}{grey}} - both Your branch and the branch You're merging into have applied different changes to the same segment, but they can be combined together. 
 \end{itemize}
 
 Every time You finish applying changes to the given file, \textbf{immediately} save and stage them. Once You're done, commit the changes. The merge commit message will be generated automatically.
@@ -278,6 +279,6 @@ I know it's hard, but it is very important to make commit messages as consistent
 If You want to contribute, check out the \href{https://github.com/marzipan14/git_tips}{GitHub repository}.
 
 \section{Acknowledgements}
-I would like to thank \href{https://www.linkedin.com/in/zoya-anwar/}{Zoya Anwar} for her feedback on the document overall, as well as the invaluable contribution to section \ref{sec:commit_messages}.
+I would like to thank \href{https://www.linkedin.com/in/zoya-anwar/}{Zoya Anwar} for her invaluable feedback.
 
 \end{document}
