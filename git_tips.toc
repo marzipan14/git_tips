@@ -8,9 +8,10 @@
 \contentsline {section}{\numberline {4}Moving between branches}{4}{section.4}%
 \contentsline {section}{\numberline {5}Updating the feature branch}{4}{section.5}%
 \contentsline {paragraph}{}{5}{section*.3}%
-\contentsline {subsection}{\numberline {5.1}Conflicts with the local main branch}{5}{subsection.5.1}%
-\contentsline {section}{\numberline {6}Merging with main}{6}{section.6}%
-\contentsline {section}{\numberline {7}Conflicts}{8}{section.7}%
+\contentsline {section}{\numberline {6}Merging with main}{5}{section.6}%
+\contentsline {section}{\numberline {7}Solving conflicts}{6}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Manually}{7}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}With a \textit {Merge Tool}}{7}{subsection.7.2}%
 \contentsline {section}{\numberline {8}Git commit messages}{8}{section.8}%
-\contentsline {section}{\numberline {9}Contributing}{9}{section.9}%
-\contentsline {section}{\numberline {10}Acknowledgements}{9}{section.10}%
+\contentsline {section}{\numberline {9}Contributing}{8}{section.9}%
+\contentsline {section}{\numberline {10}Acknowledgements}{8}{section.10}%

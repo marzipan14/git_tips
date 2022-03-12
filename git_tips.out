@@ -7,9 +7,10 @@
 \BOOKMARK [2][-]{subsection.3.4}{Pulling}{section.3}% 7
 \BOOKMARK [1][-]{section.4}{Moving between branches}{}% 8
 \BOOKMARK [1][-]{section.5}{Updating the feature branch}{}% 9
-\BOOKMARK [2][-]{subsection.5.1}{Conflicts with the local main branch}{section.5}% 10
-\BOOKMARK [1][-]{section.6}{Merging with main}{}% 11
-\BOOKMARK [1][-]{section.7}{Conflicts}{}% 12
-\BOOKMARK [1][-]{section.8}{Git commit messages}{}% 13
-\BOOKMARK [1][-]{section.9}{Contributing}{}% 14
-\BOOKMARK [1][-]{section.10}{Acknowledgements}{}% 15
+\BOOKMARK [1][-]{section.6}{Merging with main}{}% 10
+\BOOKMARK [1][-]{section.7}{Solving conflicts}{}% 11
+\BOOKMARK [2][-]{subsection.7.1}{Manually}{section.7}% 12
+\BOOKMARK [2][-]{subsection.7.2}{With a Merge Tool}{section.7}% 13
+\BOOKMARK [1][-]{section.8}{Git commit messages}{}% 14
+\BOOKMARK [1][-]{section.9}{Contributing}{}% 15
+\BOOKMARK [1][-]{section.10}{Acknowledgements}{}% 16

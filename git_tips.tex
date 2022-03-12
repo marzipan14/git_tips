@@ -43,7 +43,7 @@ The following is the general overview of our development process. You should try
 	\item Start working on the issue on Your own branch.
 	\item Remember to commit and push regularly, so that other team members can review Your changes.
 	\item Your work is only done when Your code reviewer says so.
-	\item In order to merge, first make sure that Your local main branch is up-to-date with the remote one. In order to do that, \hyperref[sec:switching]{switch} to main branch and \hyperref[sec:pulling]{pull} from the remote.
+	\item In order to merge, first make sure that Your local main branch is up-to-date with the remote one. \hyperref[sec:switching]{Switch} to main and \hyperref[sec:pulling]{pull} from the remote.
 	\item Then, \hyperref[sec:merging]{merge} Your branch into main. Solve any \hyperref[sec:conflicts]{conflicts} that may arise.
 	\item Close the issue in the issue tracker.
 \end{enumerate}
@@ -82,7 +82,7 @@ The branch You're currently in is displayed right next to the project name in \t
 \subsection{Pulling}
 \label{sec:pulling}
 
-In order to synchronise Your local branch with any changes made to its remote counterpart, right-click the project name and choose
+In order to synchronise Your local branch with any changes made to its remote counterpart, right-click the project name and select:\newline
 
 $\mathtt{Team \rightarrow Pull}$. \newline
 
@@ -158,40 +158,6 @@ $\mathtt{Team\rightarrow Merge}.$\newline
 
 After that, select the local main branch. Solve any \hyperref[sec:conflicts]{conflicts} that may arise. Move on.
 
-\subsection{Conflicts with the local main branch}
-
-If there are conflicts, however, things get a little more complicated. Most likely, a window like that in Figure \ref{fig:rebase_result} shows up. It displays the first of Your commits with conflicts detected, as well as the affected files. If You prefer to give Yourself some time to think, choose the \textit{abort rebase} option. Otherwise, if You're feeling daring today and like living life on the edge, \textit{start merge tool to resolve conflicts}.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.5]{rebase_result.png}
-    \caption{If there are conflicts during a rebase, this window will show up.}
-    \label{fig:rebase_result}
-\end{figure}
-
-Next, You will be taken to the \textit{Merge Tool}, as shown in Figure \ref{fig:rebase_merge_tool}. There are three sections here:
-\begin{itemize}
-    \item The upper section shows the files You need to fix.
-    \item The bottom left section shows what the files look like in the last commit in main. This is where You apply Your changes.
-    \item The bottom right section shows what the files look like in the first conflicting commit of Your branch. You can't change anything here.
-\end{itemize}
-
-After You've made Your changes, stage them in the \textit{Git Staging} view. Next, choose the \textit{Continue} button, just like in Figure \ref{fig:rebase_continue}. If any more of Your commits are in conflict with \textit{main}, You will have to repeat the procedure. Otherwise, the rebasing is done and You can keep working on Your branch (or merge it into main without any conflicts).
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.27]{rebase_merge_tool.png}
-    \caption{The Merge Tool shown if there are conflicts during a rebase.}
-    \label{fig:rebase_merge_tool}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.27]{rebase_continue.png}
-    \caption{The \textit{Git Staging} view shown if there are conflicts during a rebase.}
-    \label{fig:rebase_continue}
-\end{figure}
-
 \section{Merging with main}
 \label{sec:merging}
 Merging is really quite simple. Before You do that, however, make sure that Your main branch is up-to-date with the remote one (\hyperref[sec:switching]{switch} to main and \hyperref[sec:pulling]{pull} the remote). After that, right-click the project name and choose:\newline
@@ -248,36 +214,65 @@ If You encounter conflicts, refer to section \ref{sec:conflicts}.\newline
 \label{fig:after_changes}
 \end{minipage}
 
-\section{Conflicts}
+\section{Solving conflicts}
 \label{sec:conflicts}
 
-If the attempt to merge results in conflicts, it might be worth looking into the \textit{Git Staging} view. The \textit{Staged Changes} window will contain all successfully merged files. The \textit{Unstaged Changes}, in turn, will contain all the files that'll have to be fixed. You can do it either with the \textit{Merge Tool} (refer to section \ref{fig:push_conflict}) or edit every file by Yourself. In the latter case, every conflict is of the form:
+Merge conflicts are inevitable. No matter what You're trying to achieve by merging, they will often be there. And they will need to be solved. A conflict is signified by a window similar to that in figure \ref{fig:conflict_message}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.6]{conflict_message.png}
+	\caption{A conflict message.}
+	\label{fig:conflict_message}
+\end{figure}
+
+The \textit{Unstaged changes} section in \hyperref[sec:git_staging]{Git Staging} lists all files where conflicts were detected (Figure \ref{fig:staging_conflicts}). Successfully merged files are in the \textit{Staged changes} section. Now, every conflict can be solved in two ways - either manually or by using a \textit{Merge Tool}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.27]{staging_conflicts.png}
+	\caption{\hyperref[sec:git_staging]{Git Staging} view during a merge conflict.}
+	\label{fig:staging_conflicts}
+\end{figure}
+
+\subsection{Manually}
+Following the hints from \hyperref[sec:git_staging]{Git Staging}, find and open the respective files in the \textit{Package Explorer}. Every conflict would be of the form:
 \begin{verbatim}
 <<<<<<< HEAD
-what you see in the main branch
+what you see in the branch You're merging into
 =======
-what you see in the feature branch
+what you see in Your branch
 >>>>>>>
 \end{verbatim}
-You can choose one of the two options, merge them, or do anything else, really. Just remember to remove the redundant symbols - git won't do it for You! Once You're done, stage and commit Your changes.
+Modify this part in the way You deem appropriate (remember to remove the redundant symbols), and then \textbf{immediately} save and stage the changes. Move on to the next file.
 
+\subsection{With a \textit{Merge Tool}}
+The \textit{Merge Tool} can be opened either by selecting the conflicting files in \hyperref[sec:git_staging]{Git Staging} or right-clicking the project name in the \textit{Package Explorer} and choosing:\newline
+
+$\mathtt{Team \rightarrow Merge\ Tool}$.\newline
+
+There are two main sections in the \textit{Merge Tool}. The left one shows what the files look like in the branch You're merging into. This is where You apply Your changes. The right one shows what the files look like in Your branch. You can't change anything here.	
+
+The \textit{Merge Tool} highlights all differences between the two files. Use it to Your advantage:
+\begin{itemize}
+	\item blue - the change exists in Your branch, doesn't exist in the branch You're merging into;
+	\item green - the change doesn't exist in Your branch, exists in the branch You're merging into;
+	\item red - both Your branch and the branch You're merging into have applied different changes to the same segment, and they can't be combined together;
+	\item gray - both Your branch and the branch You're merging into have applied different changes to the same segment, but they can be combined together. 
+\end{itemize}
+
+Every time You finish applying changes to the given file, \textbf{immediately} save and stage them. Once You're done, commit the changes. The merge commit message will be generated automatically.
 
 \section{Git commit messages}
 \label{sec:commit_messages}
-I know it's hard, but it is very important to try your best to commit in a standardised and consistent way. Some reasons why: 
+I know it's hard, but it is very important to make commit messages as consistent as possible. Try to follow these few simple guidelines: 
 \begin{itemize}
-    \item You'll be able to track what you are doing better; when you come to work on the project two weeks later a commit message titled \textit{Add search button} will be far more helpful than a commit message titled \textit{Commit 5, I solved the issue}.
-    \item When your team members or other people go to work on the repository, they will be able to scan through what you have done and work on your code. 
-\end{itemize}
-
-How to do it: 
-\begin{enumerate}
-    \item Start with an imperative form of the verb i.e. \textit{add, fix, delete};
-    \item Start with a capital letter; 
+    \item Start the message with the imperative form of the verb i.e. \textit{add, fix, delete};
+    \item Begin with a capital letter; 
     \item Keep it short;
     \item Provide the concise outline of what You did;
-    \item Don't end the commit message with a period. 
-\end{enumerate}
+    \item Don't end the message with a period. 
+\end{itemize}
 
 \section{Contributing}
 \label{sec:contributing}
