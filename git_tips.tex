@@ -41,10 +41,12 @@ The following is the general overview of our development process. You should try
 
 \begin{enumerate}
 	\item Start working on the issue on Your own branch.
-	\item Remember to commit and push regularly, so that other team members can review Your changes.
-	\item Your work is only done when Your code reviewer says so.
-	\item In order to merge, first make sure that Your local main branch is up-to-date with the remote one. \hyperref[sec:switching]{Switch} to main and \hyperref[sec:pulling]{pull} from the remote.
+	\item Remember to commit and push \textbf{(to Your branch, not to main)} regularly, so that other team members can review Your changes.
+	\item Your work is only done when Your code reviewer says so. Only after the code reviewer's approval are You allowed to merge.
+	\item \textbf{Remember to test before merging.}
+	\item In order to merge, first make sure that Your local main branch is up-to-date with the remote one (\hyperref[sec:switching]{switch} to main and \hyperref[sec:pulling]{pull} from the remote).
 	\item Then, \hyperref[sec:merging]{merge} Your branch into main. Solve any \hyperref[sec:conflicts]{conflicts} that may arise.
+	\item \textbf{Remember to test after merging and before pushing to the remote.} Once You push, it's going to be really cumbersome to fix the errors.
 	\item Close the issue in the issue tracker.
 \end{enumerate}
 
